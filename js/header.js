@@ -2,6 +2,15 @@ function updateSearchIndex(idx, maxIdx) {
 
 }
 
+function renderSearchOptions(node, items, key) {
+    node.innerText = '';
+    items.forEach((item) => {
+        const option = document.createElement('li');
+        option.innerText = item[key];
+        node.appendChild(option);
+    });
+}
+
 export function header(node, items, key) {
     const appHeader = document.createElement('div');
     const searchLabel = document.createElement('label');
@@ -19,12 +28,7 @@ export function header(node, items, key) {
     let searchIndex = 0;
     // todo: write search index logic
 
-
-    itemsCpy.forEach((item) => {
-        const option = document.createElement('li');
-        option.innerText = item[key];
-        options.appendChild(option);
-    });
+    renderSearchOptions(options, itemsCpy, key);
 
     options.classList.add('hidden');
     searchBar.addEventListener(('focus'), function() {
@@ -44,8 +48,8 @@ export function header(node, items, key) {
         } else if (e.key === 'Enter') {
             console.log('enter')
         } else {
-            console.log('value: ',e.target.value);
             itemsCpy = items.filter((item) => item[key].toLowerCase().includes(e.target.value.toLowerCase()));
+            renderSearchOptions(options, itemsCpy, key);
         }
     })
 
