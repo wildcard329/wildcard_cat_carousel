@@ -1,5 +1,3 @@
-const root = document.querySelector("#root");
-
 function changeCrslIndex(lastIndex, index) {
     let newIndex = 0;
     if (index < 0) {
@@ -41,7 +39,7 @@ function chkBtnUsblty(lastIndex, index) {
     };
 }
 
-export function carousel(items, key) {
+export function carousel(node, items, key) {
     const itemsLen = items.length
     let crslIndex = 0;
     let newCrslIndex = 0;
@@ -88,5 +86,5 @@ export function carousel(items, key) {
     crsl.appendChild(frwdBtn);
     crsl.appendChild(displayImg);
     crsl.appendChild(crslIdxBtnCntr);
-    root.appendChild(crsl);
+    node.appendChild(crsl);
 }

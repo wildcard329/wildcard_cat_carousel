@@ -1,0 +1,5 @@
+{
+    "api": "https://api.thecatapi.com/v1",
+    "breed_uri": "breeds",
+    "random_uri": "images/search?limit=5"
+}
