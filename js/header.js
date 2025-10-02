@@ -1,13 +1,35 @@
 function updateSearchIndex(idx, maxIdx) {
+    if (idx >= maxIdx) {
+        return 0;
+    } else if (idx < 0) {
+        return maxIdx - 1;
+    } else {
+        return idx;
+    }
+}
 
+function highlightSlctdOptn(nodes, idx) {
+    Array.from(nodes).forEach((node, index) => {
+        if (idx === index) {
+            console.log('node data: ', node);
+            console.log('index: ',idx)
+            node.classList.add('highlight');
+        } else if (idx !== index) {
+            node.classList.remove('highlight');
+        }
+    })
 }
 
 function renderSearchOptions(node, items, key) {
     node.innerText = '';
-    items.forEach((item) => {
+    items.forEach((item, index) => {
         const option = document.createElement('li');
+        option.classList.add('search-option');
         option.innerText = item[key];
         node.appendChild(option);
+        if (index === 0) {
+            option.classList.add('highlight');
+        }
     });
 }
 
@@ -18,6 +40,7 @@ export function header(node, items, key) {
     const searchBtn = document.createElement('button');
     const options = document.createElement('ul');
     let itemsCpy = [...items];
+    let searchIndex = 0;
 
     appHeader.classList.add('app-header');
     options.classList.add('app-search-options');
@@ -25,7 +48,6 @@ export function header(node, items, key) {
     searchBar.placeholder = 'Search for Cat Breed';
     searchBtn.innerText = 'Search';
 
-    let searchIndex = 0;
     // todo: write search index logic
 
     renderSearchOptions(options, itemsCpy, key);
@@ -40,11 +62,16 @@ export function header(node, items, key) {
         }, 500);
     });
     searchBar.addEventListener(('keyup'), function(e) {
-        console.log('value: ', e.key);
         if (e.key === 'ArrowUp') {
-            console.log('up')
+            let searchOptions = document.getElementsByClassName('search-option');
+            let maxSrchIdx = Array.from(searchOptions).length;
+            searchIndex = updateSearchIndex(searchIndex - 1, maxSrchIdx)
+            highlightSlctdOptn(searchOptions, searchIndex);
         } else if (e.key === 'ArrowDown') {
-            console.log('down')
+            let searchOptions = document.getElementsByClassName('search-option');
+            let maxSrchIdx = Array.from(searchOptions).length;
+            searchIndex = updateSearchIndex(searchIndex + 1, maxSrchIdx)
+            highlightSlctdOptn(searchOptions, searchIndex);
         } else if (e.key === 'Enter') {
             console.log('enter')
         } else {
