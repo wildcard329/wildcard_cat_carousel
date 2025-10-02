@@ -46,6 +46,11 @@ body {
     background-color: rgb(245, 206, 32);
 }
 
+.highlight {
+    background-color: rgb(133, 99, 165);
+    color: rgb(168, 58, 18);
+}
+
 .nav-container {
     position: absolute;
     bottom: 10px;
@@ -82,4 +87,9 @@ body {
 
 .hidden {
     display: none;
+}
+
+.search-option:hover {
+    background-color: rgb(133, 99, 165);
+    color: rgb(168, 58, 18);    
 }
